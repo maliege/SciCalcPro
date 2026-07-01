@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-// ── Shared palette ──────────────────────────────────────────────────────────
-const _bg     = Color(0xFF0A0E1A);
-const _card   = Color(0xFF111827);
-const _border = Color(0xFF1F2D42);
-const _label  = Color(0xFF90A4AE);
+import '../theme/app_theme.dart';
 
 // ── CalcField ───────────────────────────────────────────────────────────────
 
@@ -29,12 +24,13 @@ class CalcField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(children: [
         SizedBox(
           width: 148,
-          child: Text(label, style: const TextStyle(color: _label, fontSize: 13)),
+          child: Text(label, style: TextStyle(color: colors.label, fontSize: 13)),
         ),
         Expanded(
           child: TextField(
@@ -45,20 +41,20 @@ class CalcField extends StatelessWidget {
               FilteringTextInputFormatter.allow(
                   RegExp(allowDecimal ? r'[\d.eE+\-]' : r'\d')),
             ],
-            style: const TextStyle(color: Colors.white, fontSize: 15),
+            style: TextStyle(color: colors.primaryText, fontSize: 15),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(color: Colors.white.withOpacity(0.25)),
+              hintStyle: TextStyle(color: colors.label.withOpacity(0.55)),
               suffixText: unit,
-              suffixStyle: const TextStyle(color: _label, fontSize: 12),
+              suffixStyle: TextStyle(color: colors.label, fontSize: 12),
               isDense: true,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               filled: true,
-              fillColor: const Color(0xFF0D1525),
+              fillColor: colors.fieldFill,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(color: _border),
+                borderSide: BorderSide(color: colors.border),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
@@ -92,36 +88,38 @@ class CalcOptionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(children: [
         SizedBox(
           width: 148,
-          child: Text(label, style: const TextStyle(color: _label, fontSize: 13)),
+          child: Text(label, style: TextStyle(color: colors.label, fontSize: 13)),
         ),
         Wrap(
           spacing: 8,
           children: List.generate(
-              options.length, (i) => _chip(options[i], i == selected, () => onChanged(i))),
+              options.length, (i) => _chip(context, options[i], i == selected, () => onChanged(i))),
         ),
       ]),
     );
   }
 
-  Widget _chip(String text, bool sel, VoidCallback onTap) {
+  Widget _chip(BuildContext context, String text, bool sel, VoidCallback onTap) {
+    final colors = context.appColors;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
-          color: sel ? accentColor.withOpacity(0.15) : _card,
-          border: Border.all(color: sel ? accentColor : _border, width: 1.5),
+          color: sel ? accentColor.withOpacity(0.15) : colors.card,
+          border: Border.all(color: sel ? accentColor : colors.border, width: 1.5),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(text,
             style: TextStyle(
-                color: sel ? accentColor : _label,
+                color: sel ? accentColor : colors.label,
                 fontSize: 13,
                 fontWeight: FontWeight.w600)),
       ),
@@ -202,28 +200,29 @@ class CalcResultCard extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   letterSpacing: 1)),
           const SizedBox(height: 10),
-          ...rows.map(_rowWidget),
+          ...rows.map((r) => _rowWidget(context, r)),
         ],
       ),
     );
   }
 
-  Widget _rowWidget(CalcResultRow r) {
+  Widget _rowWidget(BuildContext context, CalcResultRow r) {
+    final colors = context.appColors;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(children: [
         Expanded(
-            child: Text(r.label, style: const TextStyle(color: _label, fontSize: 13))),
+            child: Text(r.label, style: TextStyle(color: colors.label, fontSize: 13))),
         Text(r.value,
-            style: const TextStyle(
-                color: Colors.white,
+            style: TextStyle(
+                color: colors.primaryText,
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'monospace')),
         if (r.unit.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(left: 6),
-            child: Text(r.unit, style: const TextStyle(color: _label, fontSize: 12)),
+            child: Text(r.unit, style: TextStyle(color: colors.label, fontSize: 12)),
           ),
       ]),
     );
@@ -239,7 +238,7 @@ class CalcScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: _bg,
+      color: context.appColors.scaffoldBg,
       child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
         child: Column(
@@ -270,11 +269,12 @@ class _CalcInfoBoxState extends State<CalcInfoBox> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Container(
       margin: const EdgeInsets.only(top: 12),
       decoration: BoxDecoration(
-        color: _card,
-        border: Border.all(color: _border),
+        color: colors.card,
+        border: Border.all(color: colors.border),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -286,35 +286,35 @@ class _CalcInfoBoxState extends State<CalcInfoBox> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Row(children: [
-                const Icon(Icons.info_outline, size: 14, color: Color(0xFF607080)),
+                Icon(Icons.info_outline, size: 14, color: colors.label),
                 const SizedBox(width: 8),
-                const Expanded(
+                Expanded(
                   child: Text('Formül Hakkında',
                       style: TextStyle(
-                          color: Color(0xFF90A4AE),
+                          color: colors.label,
                           fontSize: 12,
                           fontWeight: FontWeight.w600)),
                 ),
                 Icon(_expanded ? Icons.expand_less : Icons.expand_more,
-                    size: 18, color: const Color(0xFF607080)),
+                    size: 18, color: colors.label),
               ]),
             ),
           ),
           if (_expanded) ...[
-            Container(height: 1, color: _border),
+            Container(height: 1, color: colors.border),
             Padding(
               padding: const EdgeInsets.fromLTRB(14, 10, 14, 14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(widget.description,
-                      style: const TextStyle(
-                          color: Color(0xFF90A4AE), fontSize: 12, height: 1.65)),
+                      style: TextStyle(
+                          color: colors.label, fontSize: 12, height: 1.65)),
                   if (widget.references.isNotEmpty) ...[
                     const SizedBox(height: 12),
-                    const Text('Kaynaklar',
+                    Text('Kaynaklar',
                         style: TextStyle(
-                            color: Color(0xFF607080),
+                            color: colors.label,
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 0.5)),
@@ -326,12 +326,12 @@ class _CalcInfoBoxState extends State<CalcInfoBox> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('${e.key + 1}. ',
-                                style: const TextStyle(
-                                    color: Color(0xFF607080), fontSize: 11)),
+                                style: TextStyle(
+                                    color: colors.label, fontSize: 11)),
                             Expanded(
                               child: Text(e.value,
-                                  style: const TextStyle(
-                                      color: Color(0xFF607080),
+                                  style: TextStyle(
+                                      color: colors.label,
                                       fontSize: 11,
                                       height: 1.55)),
                             ),

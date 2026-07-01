@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 import '../modules/electronics/widgets/ohm_tab.dart';
 import '../modules/electronics/widgets/power_tab.dart';
 import '../modules/electronics/widgets/rc_tab.dart';
 import '../modules/electronics/widgets/resonance_tab.dart';
 import '../modules/electronics/widgets/vdivider_tab.dart';
 
-const _kBg     = Color(0xFF0A0E1A);
-const _kHeader = Color(0xFF0D1220);
-const _kCard   = Color(0xFF0D1525);
-const _kBorder = Color(0xFF1F2D42);
 const _kAccent = Color(0xFF66BB6A);
-const _kLabel  = Color(0xFF90A4AE);
 
 class _Entry {
   final String label, subtitle;
@@ -37,14 +33,15 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Scaffold(
-      backgroundColor: _kBg,
+      backgroundColor: colors.scaffoldBg,
       appBar: AppBar(
-        backgroundColor: _kHeader,
+        backgroundColor: colors.headerBg,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'Elektronik',
-          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+          style: TextStyle(color: colors.primaryText, fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
       body: Column(
@@ -72,22 +69,23 @@ class _Selector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.appColors;
     return Container(
-      color: _kHeader,
+      color: colors.headerBg,
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 14),
       child: DropdownButtonFormField<int>(
         value: selectedIndex,
-        dropdownColor: const Color(0xFF111827),
+        dropdownColor: colors.card,
         iconEnabledColor: _kAccent,
         isExpanded: true,
         decoration: InputDecoration(
           isDense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
           filled: true,
-          fillColor: _kCard,
+          fillColor: colors.fieldFill,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
-            borderSide: const BorderSide(color: _kBorder),
+            borderSide: BorderSide(color: colors.border),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(6),
@@ -101,16 +99,16 @@ class _Selector extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(catalog[i].label,
-                  style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                  style: TextStyle(color: colors.primaryText, fontSize: 14, fontWeight: FontWeight.w600)),
               Text(catalog[i].subtitle,
-                  style: const TextStyle(color: _kLabel, fontSize: 11)),
+                  style: TextStyle(color: colors.label, fontSize: 11)),
             ],
           ),
         )),
         selectedItemBuilder: (_) => List.generate(catalog.length, (i) => Align(
           alignment: Alignment.centerLeft,
           child: Text(catalog[i].label,
-              style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600)),
+              style: TextStyle(color: colors.primaryText, fontSize: 14, fontWeight: FontWeight.w600)),
         )),
         onChanged: (v) { if (v != null) onChanged(v); },
       ),

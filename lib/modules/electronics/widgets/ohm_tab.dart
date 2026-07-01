@@ -56,7 +56,7 @@ class _OhmTabState extends State<OhmTab> {
       onChanged: (v) => setState(() { _solveFor = v; _rows = []; }),
       accentColor: _accent,
     ),
-    const Divider(color: Color(0xFF1F2D42), height: 20),
+    Divider(color: Theme.of(context).dividerColor, height: 20),
     if (_solveFor != 0)
       CalcField(label: 'Gerilim (V)', hint: '5',   unit: 'V',  ctrl: _v, accentColor: _accent),
     if (_solveFor != 1)

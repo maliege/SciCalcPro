@@ -7,11 +7,11 @@ Scientific Calculator Pro
 
 ## TÜRKÇE
 
-### Kısa Açıklama (61 karakter — maks. 80)
-Bilimsel hesap makinesi — trigonometri, istatistik, astronomi
+### Kısa Açıklama (79 karakter — maks. 80)
+Bilimsel & mühendislik hesap makinesi, birim çevirici, astronomi & elektronik
 
 ### Tam Açıklama
-Scientific Calculator Pro, öğrenciler, mühendisler ve bilim insanları için tasarlanmış güçlü, çok modüllü bir bilimsel hesap makinesidir.
+Scientific Calculator Pro; öğrenciler, mühendisler ve bilim insanları için tasarlanmış güçlü, çok modüllü bir bilimsel hesap makinesi ve mühendislik hesaplama aracıdır. Trigonometri, logaritma, istatistik, birim çevirici, astronomi ve elektronik formülleri tek bir uygulamada bir araya getirir.
 
 HESAP MAKİNESİ
 • Trigonometrik fonksiyonlar (sin, cos, tan) — derece veya radyan
@@ -37,20 +37,24 @@ ELEKTRONİK MODÜLÜ
 • Gerilim bölücü
 
 BİRİM DÖNÜŞTÜRÜCÜ
-• Uzunluk, kütle, sıcaklık, basınç ve daha fazlası
+• 10 kategori: uzunluk, kütle, zaman, alan, hacim, hız, sıcaklık, enerji, veri ve açı
+• Anlık dönüşüm, birim değiştirme ve astronomik birimler (AU, ışık yılı, parsek)
 
-TASARIM
-Casio ClassWiz'den ilham alan dot matrix LCD ekranıyla şık koyu arayüz. Tüm hesaplamalar tamamen cihaz üzerinde gerçekleşir — internet bağlantısı gerektirmez.
+TASARIM & KULLANIM
+Casio ClassWiz'den ilham alan dot matrix LCD ekranıyla şık arayüz. Açık ve koyu tema desteği (Sistem/Açık/Koyu) ile göz konforu. Uygulama içi kullanım rehberi ile tüm modülleri kolayca öğrenin. Tüm hesaplamalar tamamen cihaz üzerinde gerçekleşir — internet bağlantısı gerektirmez.
+
+ANAHTAR KELİMELER
+bilimsel hesap makinesi, mühendislik hesap makinesi, trigonometri, birim çevirici, birim dönüştürücü, logaritma, astronomi, elektronik, fizik
 
 ---
 
 ## ENGLISH
 
-### Short Description (65 chars — max 80)
-Scientific calculator — trig, statistics, astronomy & electronics
+### Short Description (76 chars — max 80)
+Scientific & engineering calculator, unit converter, astronomy & electronics
 
 ### Full Description
-Scientific Calculator Pro is a powerful, multi-domain scientific calculator designed for students, engineers, and scientists.
+Scientific Calculator Pro is a powerful, multi-domain scientific and engineering calculator designed for students, engineers, and scientists. It combines trigonometry, logarithms, statistics, a unit converter, astronomy and electronics formulas in a single app.
 
 CALCULATOR
 • Trigonometric functions (sin, cos, tan) in degrees or radians
@@ -76,10 +80,14 @@ ELECTRONICS MODULE
 • Voltage divider
 
 UNIT CONVERTER
-• Length, mass, temperature, pressure and more
+• 10 categories: length, mass, time, area, volume, speed, temperature, energy, data and angle
+• Instant conversion, unit swap and astronomical units (AU, light-year, parsec)
 
-DESIGN
-Elegant dark interface with a Casio ClassWiz-inspired dot matrix LCD display. All calculations run entirely on-device — no internet connection required for computations.
+DESIGN & USABILITY
+Elegant interface with a Casio ClassWiz-inspired dot matrix LCD display. Light and dark theme support (System/Light/Dark) for eye comfort. Built-in user guide to learn every module quickly. All calculations run entirely on-device — no internet connection required for computations.
+
+KEYWORDS
+scientific calculator, engineering calculator, trigonometric functions, unit converter, logarithm, astronomy, electronics, physics
 
 PRIVACY
 This application does not collect, store, or transmit any personal data.

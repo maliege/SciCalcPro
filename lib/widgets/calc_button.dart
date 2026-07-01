@@ -87,28 +87,46 @@ class _CalcButtonState extends State<CalcButton>
       flex: widget.flex,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 3.5),
-        child: GestureDetector(
-          onTapDown: _onTapDown,
-          onTapUp: _onTapUp,
-          onTapCancel: _onTapCancel,
-          child: AnimatedBuilder(
-            animation: _press,
-            builder: (context, child) => Transform.translate(
-              offset: Offset(0, _press.value),
-              child: child,
-            ),
-            child: _CasioKey(
-              label: widget.label,
-              shiftLabel: widget.shiftLabel,
-              alphaLabel: widget.alphaLabel,
-              spec: spec,
-              pressed: _pressed,
-              fontSize: widget.fontSize,
+        child: Semantics(
+          button: true,
+          label: _semanticLabel(),
+          excludeSemantics: true,
+          onTap: widget.onTap,
+          child: GestureDetector(
+            onTapDown: _onTapDown,
+            onTapUp: _onTapUp,
+            onTapCancel: _onTapCancel,
+            child: AnimatedBuilder(
+              animation: _press,
+              builder: (context, child) => Transform.translate(
+                offset: Offset(0, _press.value),
+                child: child,
+              ),
+              child: _CasioKey(
+                label: widget.label,
+                shiftLabel: widget.shiftLabel,
+                alphaLabel: widget.alphaLabel,
+                spec: spec,
+                pressed: _pressed,
+                fontSize: widget.fontSize,
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  // Screen-reader friendly label including the SHIFT/ALPHA alternate functions.
+  String _semanticLabel() {
+    final buffer = StringBuffer(widget.label);
+    if (widget.shiftLabel != null) {
+      buffer.write(', SHIFT ${widget.shiftLabel}');
+    }
+    if (widget.alphaLabel != null) {
+      buffer.write(', ALPHA ${widget.alphaLabel}');
+    }
+    return buffer.toString();
   }
 
   _KeySpec _spec(ButtonStyle s) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/calculator_engine.dart';
+import '../theme/app_theme.dart';
 import '../widgets/calc_button.dart' as cb;
 import '../widgets/display_widget.dart';
 
@@ -94,7 +95,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     return Scaffold(
-      backgroundColor: const Color(0xFF131825),
+      backgroundColor: context.appColors.calcBg,
       body: SafeArea(
         child: isLandscape ? _landscape() : _portrait(),
       ),
