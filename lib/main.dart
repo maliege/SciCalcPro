@@ -59,7 +59,7 @@ class _AppShellState extends State<_AppShell> {
         selectedIndex: _idx,
         onDestinationSelected: (i) => setState(() => _idx = i),
         backgroundColor: const Color(0xFF0D1220),
-        indicatorColor: const Color(0xFF4FC3F7).withValues(alpha: 0.18),
+        indicatorColor: const Color(0xFF4FC3F7).withOpacity(0.18),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: const [
           NavigationDestination(

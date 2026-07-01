@@ -131,7 +131,7 @@ class DisplayWidget extends StatelessWidget {
     return Text(
       label,
       style: GoogleFonts.vt323(
-        color: active ? color : color.withValues(alpha: 0.15),
+        color: active ? color : color.withOpacity(0.15),
         fontSize: 12,
         letterSpacing: 0.4,
         height: 1.0,

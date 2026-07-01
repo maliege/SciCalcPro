@@ -48,7 +48,7 @@ class CalcField extends StatelessWidget {
             style: const TextStyle(color: Colors.white, fontSize: 15),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.25)),
+              hintStyle: TextStyle(color: Colors.white.withOpacity(0.25)),
               suffixText: unit,
               suffixStyle: const TextStyle(color: _label, fontSize: 12),
               isDense: true,
@@ -115,7 +115,7 @@ class CalcOptionRow extends StatelessWidget {
         duration: const Duration(milliseconds: 150),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
-          color: sel ? accentColor.withValues(alpha: 0.15) : _card,
+          color: sel ? accentColor.withOpacity(0.15) : _card,
           border: Border.all(color: sel ? accentColor : _border, width: 1.5),
           borderRadius: BorderRadius.circular(20),
         ),
@@ -188,8 +188,8 @@ class CalcResultCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
       decoration: BoxDecoration(
-        color: resultColor.withValues(alpha: 0.06),
-        border: Border.all(color: resultColor.withValues(alpha: 0.25)),
+        color: resultColor.withOpacity(0.06),
+        border: Border.all(color: resultColor.withOpacity(0.25)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
