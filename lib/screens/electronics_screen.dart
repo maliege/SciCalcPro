@@ -74,7 +74,7 @@ class _Selector extends StatelessWidget {
       color: colors.headerBg,
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 14),
       child: DropdownButtonFormField<int>(
-        value: selectedIndex,
+        initialValue: selectedIndex,
         dropdownColor: colors.card,
         iconEnabledColor: _kAccent,
         isExpanded: true,

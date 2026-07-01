@@ -70,13 +70,14 @@ class _AppShellState extends State<_AppShell> {
         selectedIndex: _idx,
         onDestinationSelected: (i) => setState(() => _idx = i),
         backgroundColor: colors.headerBg,
-        indicatorColor: const Color(0xFF4FC3F7).withOpacity(0.18),
+        height: 62,
+        indicatorColor: const Color(0xFF4FC3F7).withValues(alpha: 0.18),
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.calculate_outlined),
             selectedIcon: Icon(Icons.calculate, color: Color(0xFF4FC3F7)),
-            label: 'Hesap Makinesi',
+            label: 'Hesap',
           ),
           NavigationDestination(
             icon: Icon(Icons.auto_awesome_outlined),

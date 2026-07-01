@@ -177,7 +177,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: sel ? _accent.withOpacity(0.15) : colors.card,
+                  color: sel ? _accent.withValues(alpha: 0.15) : colors.card,
                   border: Border.all(
                       color: sel ? _accent : colors.border, width: 1.5),
                   borderRadius: BorderRadius.circular(20),
@@ -293,7 +293,7 @@ class _ConverterScreenState extends State<ConverterScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Material(
-              color: _accent.withOpacity(0.14),
+              color: _accent.withValues(alpha: 0.14),
               shape: const CircleBorder(),
               child: Tooltip(
                 message: 'Birimleri değiştir',

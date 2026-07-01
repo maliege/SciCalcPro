@@ -13,6 +13,8 @@ class CalculatorScreen extends StatefulWidget {
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
   final CalculatorEngine _engine = CalculatorEngine();
+  static const EdgeInsets _numKeyPadding =
+      EdgeInsets.symmetric(horizontal: 3, vertical: 1.2);
 
   // When true, next function press uses the SHIFT (yellow) variant.
   bool _shifted = false;
@@ -58,6 +60,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         label: d,
         style: cb.ButtonStyle.number,
         onTap: () => _digit(d),
+      padding: _numKeyPadding,
       );
 
   // Operator button
@@ -65,6 +68,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         label: label,
         style: cb.ButtonStyle.operator,
         onTap: () => _binary(label),
+      );
+
+  // Operator button for numeric keypad rows with tighter spacing.
+  cb.CalcButton _numOp(String label) => cb.CalcButton(
+        label: label,
+        style: cb.ButtonStyle.operator,
+        onTap: () => _binary(label),
+        padding: _numKeyPadding,
       );
 
   // Function button — shiftLabel shown in yellow above, activates on SHIFT press
@@ -154,19 +165,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       ];
 
   List<Widget> _funcRows() => [
-        Expanded(child: _rowTopCtrl()),
-        Expanded(child: _rowMemory()),
-        Expanded(child: _rowTrig()),
-        Expanded(child: _rowLogPow()),
-        Expanded(child: _rowMisc()),
+      Expanded(child: _rowTopCtrl()),
+      Expanded(child: _rowMemory()),
+      Expanded(child: _rowTrig()),
+      Expanded(child: _rowLogPow()),
+      Expanded(child: _rowMisc()),
       ];
 
   List<Widget> _numRows() => [
-        Expanded(child: _rowClear()),
-        Expanded(child: _row789()),
-        Expanded(child: _row456()),
-        Expanded(child: _row123()),
-        Expanded(child: _row0()),
+      Expanded(child: _rowClear()),
+      Expanded(child: _row789()),
+      Expanded(child: _row456()),
+      Expanded(child: _row123()),
+      Expanded(child: _row0()),
       ];
 
   // ── Button rows ─────────────────────────────────────────────────────────
@@ -286,25 +297,28 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           style: cb.ButtonStyle.delete,
           onTap: _clear,
           fontSize: 15,
+          padding: _numKeyPadding,
         ),
         cb.CalcButton(
           label: '⌫',
           style: cb.ButtonStyle.delete,
           onTap: _backspace,
           fontSize: 18,
+          padding: _numKeyPadding,
         ),
         cb.CalcButton(
           label: '%',
           style: cb.ButtonStyle.function,
           onTap: _percent,
           fontSize: 16,
+          padding: _numKeyPadding,
         ),
-        _op('÷'),
+        _numOp('÷'),
       ]);
 
-  Widget _row789() => Row(children: [_n('7'), _n('8'), _n('9'), _op('×')]);
-  Widget _row456() => Row(children: [_n('4'), _n('5'), _n('6'), _op('-')]);
-  Widget _row123() => Row(children: [_n('1'), _n('2'), _n('3'), _op('+')]);
+  Widget _row789() => Row(children: [_n('7'), _n('8'), _n('9'), _numOp('×')]);
+  Widget _row456() => Row(children: [_n('4'), _n('5'), _n('6'), _numOp('-')]);
+  Widget _row123() => Row(children: [_n('1'), _n('2'), _n('3'), _numOp('+')]);
 
   Widget _row0() => Row(children: [
         cb.CalcButton(
@@ -312,18 +326,21 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           style: cb.ButtonStyle.number,
           onTap: () => _digit('0'),
           flex: 2,
+          padding: _numKeyPadding,
         ),
         cb.CalcButton(
           label: '.',
           style: cb.ButtonStyle.number,
           onTap: _decimal,
           fontSize: 22,
+          padding: _numKeyPadding,
         ),
         cb.CalcButton(
           label: '=',
           style: cb.ButtonStyle.accent,
           onTap: _equals,
           fontSize: 22,
+          padding: _numKeyPadding,
         ),
       ]);
 }

@@ -139,7 +139,7 @@ class DisplayWidget extends StatelessWidget {
     return Text(
       label,
       style: GoogleFonts.orbitron(
-        color: active ? color : color.withOpacity(0.18),
+        color: active ? color : color.withValues(alpha: 0.18),
         fontSize: 11,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.4,

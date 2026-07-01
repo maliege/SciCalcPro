@@ -22,6 +22,7 @@ class CalcButton extends StatefulWidget {
   final VoidCallback onTap;
   final double? fontSize;
   final int flex;
+  final EdgeInsetsGeometry padding;
 
   const CalcButton({
     super.key,
@@ -32,6 +33,7 @@ class CalcButton extends StatefulWidget {
     required this.onTap,
     this.fontSize,
     this.flex = 1,
+    this.padding = const EdgeInsets.symmetric(horizontal: 3, vertical: 3.5),
   });
 
   @override
@@ -86,7 +88,7 @@ class _CalcButtonState extends State<CalcButton>
     return Expanded(
       flex: widget.flex,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 3.5),
+        padding: widget.padding,
         child: Semantics(
           button: true,
           label: _semanticLabel(),
