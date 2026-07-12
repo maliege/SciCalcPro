@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/app_theme.dart';
+import '../theme/haptic_controller.dart';
 import '../theme/theme_controller.dart';
 import 'guide_screen.dart';
 
@@ -14,6 +15,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.appColors;
     final controller = ThemeController.of(context);
+    final hapticController = HapticController.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,6 +29,15 @@ class SettingsScreen extends StatelessWidget {
         children: [
           _SectionTitle('Görünüm', color: colors.label),
           _ThemeCard(controller: controller),
+          const SizedBox(height: 16),
+          _ToggleCard(
+            icon: Icons.vibration_outlined,
+            iconColor: const Color(0xFF4DB6AC),
+            title: 'Haptic Geri Bildirim',
+            subtitle: 'Tuş basışlarında titreşim geri bildirimi',
+            value: hapticController.enabled,
+            onChanged: (v) => hapticController.setEnabled(v),
+          ),
           const SizedBox(height: 24),
           _SectionTitle('Yardım', color: colors.label),
           _ActionCard(
@@ -69,6 +80,56 @@ class SettingsScreen extends StatelessWidget {
         const SnackBar(content: Text('Mağaza şu anda açılamadı.')),
       );
     }
+  }
+}
+
+class _ToggleCard extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const _ToggleCard({
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.appColors;
+    const accent = Color(0xFF4FC3F7);
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.card,
+        border: Border.all(color: colors.border),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: SwitchListTile.adaptive(
+        value: value,
+        onChanged: onChanged,
+        activeThumbColor: accent,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+        secondary: Icon(icon, size: 24, color: iconColor),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: colors.primaryText,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: TextStyle(color: colors.label, fontSize: 12),
+        ),
+      ),
+    );
   }
 }
 

@@ -7,6 +7,7 @@ import 'screens/electronics_screen.dart';
 import 'screens/converter_screen.dart';
 import 'screens/settings_screen.dart';
 import 'theme/app_theme.dart';
+import 'theme/haptic_controller.dart';
 import 'theme/theme_controller.dart';
 
 Future<void> main() async {
@@ -18,29 +19,44 @@ Future<void> main() async {
     DeviceOrientation.landscapeRight,
   ]);
   final themeController = await ThemeController.load();
-  runApp(SciCalcProApp(themeController: themeController));
+  final hapticController = await HapticController.load();
+  runApp(
+    SciCalcProApp(
+      themeController: themeController,
+      hapticController: hapticController,
+    ),
+  );
 }
 
 class SciCalcProApp extends StatelessWidget {
   final ThemeController themeController;
-  const SciCalcProApp({super.key, required this.themeController});
+  final HapticController hapticController;
+
+  const SciCalcProApp({
+    super.key,
+    required this.themeController,
+    required this.hapticController,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ThemeControllerScope(
-      controller: themeController,
-      child: AnimatedBuilder(
-        animation: themeController,
-        builder: (context, _) {
-          return MaterialApp(
-            title: 'SciCalc Pro',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.light(),
-            darkTheme: AppTheme.dark(),
-            themeMode: themeController.mode,
-            home: const _AppShell(),
-          );
-        },
+    return HapticControllerScope(
+      controller: hapticController,
+      child: ThemeControllerScope(
+        controller: themeController,
+        child: AnimatedBuilder(
+          animation: Listenable.merge([themeController, hapticController]),
+          builder: (context, _) {
+            return MaterialApp(
+              title: 'SciCalc Pro',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.light(),
+              darkTheme: AppTheme.dark(),
+              themeMode: themeController.mode,
+              home: const _AppShell(),
+            );
+          },
+        ),
       ),
     );
   }

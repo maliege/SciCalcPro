@@ -11,6 +11,7 @@ class CalculatorEngine {
   String? _pendingOperator;
   bool _newInput = true;
   double _memory = 0;
+  double _lastAnswer = 0;
   AngleMode angleMode = AngleMode.degrees;
   bool _hasError = false;
 
@@ -94,6 +95,12 @@ class CalculatorEngine {
       final a = _firstOperand!;
       _expression = '${_formatNum(a)} $_pendingOperator ${_formatNum(current)} =';
       _applyPending(current);
+      if (!_hasError) {
+        final result = _parseDisplay();
+        if (result != null) {
+          _lastAnswer = result;
+        }
+      }
       _pendingOperator = null;
       _firstOperand = null;
     }
@@ -182,6 +189,7 @@ class CalculatorEngine {
 
     if (result == null) return;
     if (result.isNaN || result.isInfinite) { _setError('Tanımsız'); return; }
+    _lastAnswer = result;
     _expression = '$fn(${_formatNum(x)}) =';
     _display = _formatNum(result);
     _newInput = true;
@@ -200,6 +208,12 @@ class CalculatorEngine {
       default: return;
     }
     _display = _formatNum(value);
+    _newInput = false;
+  }
+
+  void inputAns() {
+    if (_hasError) clear();
+    _display = _formatNum(_lastAnswer);
     _newInput = false;
   }
 

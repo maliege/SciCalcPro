@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../theme/haptic_controller.dart';
 
 // Casio fx-991EX ClassWiz inspired button styles
 enum ButtonStyle {
@@ -23,6 +24,7 @@ class CalcButton extends StatefulWidget {
   final double? fontSize;
   final int flex;
   final EdgeInsetsGeometry padding;
+  final bool hapticEnabled;
 
   const CalcButton({
     super.key,
@@ -34,6 +36,7 @@ class CalcButton extends StatefulWidget {
     this.fontSize,
     this.flex = 1,
     this.padding = const EdgeInsets.symmetric(horizontal: 3, vertical: 3.5),
+    this.hapticEnabled = true,
   });
 
   @override
@@ -67,7 +70,10 @@ class _CalcButtonState extends State<CalcButton>
   void _onTapDown(_) {
     setState(() => _pressed = true);
     _ctrl.forward();
-    HapticFeedback.selectionClick();
+    final globallyEnabled = HapticController.maybeOf(context)?.enabled ?? true;
+    if (widget.hapticEnabled && globallyEnabled) {
+      HapticFeedback.selectionClick();
+    }
   }
 
   void _onTapUp(_) {

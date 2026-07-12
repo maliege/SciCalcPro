@@ -27,6 +27,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void _percent()       => setState(() => _engine.percent());
   void _backspace()     => setState(() => _engine.backspace());
   void _clear()         => setState(() => _engine.clear());
+  void _clearEntry()    => setState(() => _engine.clearEntry());
+  void _ans()           => setState(() => _engine.inputAns());
   void _equals()        => setState(() => _engine.equals());
   void _binary(String op) => setState(() => _engine.binaryOperator(op));
   void _constant(String c) => setState(() => _engine.inputConstant(c));
@@ -263,16 +265,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   Widget _rowMisc() => Row(children: [
         cb.CalcButton(
           label: '+/-',
-          shiftLabel: 'ANS',
+          shiftLabel: 'NEG',
           style: cb.ButtonStyle.function,
           onTap: _sign,
           fontSize: 13,
         ),
         cb.CalcButton(
-          label: '⌫',
+          label: 'CE',
           shiftLabel: 'CLR',
           style: cb.ButtonStyle.delete,
-          onTap: _backspace,
+          onTap: _clearEntry,
           fontSize: 16,
         ),
         _fn('|x|', 'abs'),
@@ -283,9 +285,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           fontSize: 14,
         ),
         cb.CalcButton(
-          label: 'AC',
-          style: cb.ButtonStyle.delete,
-          onTap: _clear,
+          label: 'ANS',
+          style: cb.ButtonStyle.memory,
+          onTap: _ans,
           fontSize: 14,
         ),
       ]);

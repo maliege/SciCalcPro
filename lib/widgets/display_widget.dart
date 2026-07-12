@@ -100,7 +100,7 @@ class DisplayWidget extends StatelessWidget {
                       label: isError ? 'Hata: $display' : 'Sonuç: $display',
                       excludeSemantics: true,
                       child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 120),
+                        duration: const Duration(milliseconds: 60),
                         transitionBuilder: (child, anim) => FadeTransition(
                           opacity: anim,
                           child: child,

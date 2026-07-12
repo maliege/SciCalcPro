@@ -598,6 +598,53 @@ void main() {
     });
   });
 
+  // ── ANS behavior ──────────────────────────────────────────────────────────
+  group('ans', () {
+    test('updates from equals result', () {
+      typeNumber(e, '2');
+      e.binaryOperator('+');
+      typeNumber(e, '3');
+      e.equals();
+
+      e.clear();
+      e.inputAns();
+      expectClose(e, 5);
+    });
+
+    test('updates from unary result', () {
+      typeNumber(e, '9');
+      e.unaryFunction('√x');
+
+      e.clear();
+      e.inputAns();
+      expectClose(e, 3);
+    });
+
+    test('does not change after constant input', () {
+      typeNumber(e, '4');
+      e.binaryOperator('+');
+      typeNumber(e, '1');
+      e.equals(); // ANS = 5
+
+      e.inputConstant('π'); // should not overwrite ANS
+      e.clear();
+      e.inputAns();
+      expectClose(e, 5);
+    });
+
+    test('is preserved across clearEntry', () {
+      typeNumber(e, '8');
+      e.binaryOperator('÷');
+      typeNumber(e, '2');
+      e.equals(); // ANS = 4
+
+      typeNumber(e, '123');
+      e.clearEntry();
+      e.inputAns();
+      expectClose(e, 4);
+    });
+  });
+
   // ── Edge cases ─────────────────────────────────────────────────────────────
   group('edge cases', () {
     test('equals without operator just keeps display', () {
