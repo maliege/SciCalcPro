@@ -410,6 +410,107 @@ void main() {
     });
   });
 
+  // ── Hyperbolic functions ─────────────────────────────────────────────────
+  group('hyperbolic functions', () {
+    test('sinh(0) = 0', () {
+      e.unaryFunction('sinh');
+      expectClose(e, 0);
+    });
+
+    test('cosh(0) = 1', () {
+      e.unaryFunction('cosh');
+      expectClose(e, 1);
+    });
+
+    test('tanh(0) = 0', () {
+      e.unaryFunction('tanh');
+      expectClose(e, 0);
+    });
+
+    test('inverse hyperbolic functions recover their inputs', () {
+      typeNumber(e, '1');
+      e.unaryFunction('sinh');
+      e.unaryFunction('sinh⁻¹');
+      expectClose(e, 1);
+
+      e.clear();
+      typeNumber(e, '1');
+      e.unaryFunction('cosh');
+      e.unaryFunction('cosh⁻¹');
+      expectClose(e, 1);
+
+      e.clear();
+      typeNumber(e, '1');
+      e.unaryFunction('tanh');
+      e.unaryFunction('tanh⁻¹');
+      expectClose(e, 1);
+    });
+
+    test('inverse cosh below 1 sets error', () {
+      e.unaryFunction('cosh⁻¹');
+      expect(e.display, 'Tanımsız');
+    });
+
+    test('inverse tanh outside open interval sets error', () {
+      typeNumber(e, '1');
+      e.unaryFunction('tanh⁻¹');
+      expect(e.display, 'Tanımsız');
+    });
+  });
+
+  // ── Cube, rounding, modulo and random ────────────────────────────────────
+  group('additional scientific functions', () {
+    test('cube and cube root are inverse operations', () {
+      typeNumber(e, '3');
+      e.unaryFunction('x³');
+      expectClose(e, 27);
+      e.unaryFunction('∛x');
+      expectClose(e, 3);
+    });
+
+    test('cube root supports negative values', () {
+      typeNumber(e, '8');
+      e.toggleSign();
+      e.unaryFunction('∛x');
+      expectClose(e, -2);
+    });
+
+    test('Rnd rounds and floor rounds down', () {
+      typeNumber(e, '2.6');
+      e.unaryFunction('Rnd');
+      expectClose(e, 3);
+
+      e.clear();
+      typeNumber(e, '2.6');
+      e.unaryFunction('⌊x⌋');
+      expectClose(e, 2);
+    });
+
+    test('10 mod 3 = 1', () {
+      typeNumber(e, '10');
+      e.binaryOperator('mod');
+      typeNumber(e, '3');
+      e.equals();
+      expectClose(e, 1);
+    });
+
+    test('modulo by zero sets error', () {
+      typeNumber(e, '10');
+      e.binaryOperator('mod');
+      typeNumber(e, '0');
+      e.equals();
+      expect(e.display, 'Sıfıra bölme');
+    });
+
+    test('Ran# produces a value in [0, 1)', () {
+      for (var i = 0; i < 20; i++) {
+        e.inputRandom();
+        expect(result(e), inInclusiveRange(0, 1));
+        expect(result(e), lessThan(1));
+      }
+    });
+  });
+
   // ── Factorial ──────────────────────────────────────────────────────────────
   group('factorial', () {
     test('0! = 1', () {

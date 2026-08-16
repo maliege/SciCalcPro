@@ -14,6 +14,7 @@ class CalculatorEngine {
   double _lastAnswer = 0;
   AngleMode angleMode = AngleMode.degrees;
   bool _hasError = false;
+  final math.Random _rng = math.Random();
 
   String get display => _display;
   String get expression => _expression;
@@ -132,6 +133,9 @@ class CalculatorEngine {
       case 'nPr': result = _permutation(a, b);
       case 'nCr': result = _combination(a, b);
       case 'EE': result = a * math.pow(10, b).toDouble();
+      case 'mod':
+        if (b == 0) { _setError('Sıfıra bölme'); return; }
+        result = a % b;
     }
     if (result == null) return;
     if (result.isNaN || result.isInfinite) { _setError('Tanımsız'); return; }
@@ -185,6 +189,26 @@ class CalculatorEngine {
         }
         result = _factorial(x.toInt());
       case 'abs': result = x.abs();
+      // Hiperbolik fonksiyonlar açı dönüşümü kullanmaz; ham x ile hesaplanır.
+      case 'sinh': result = (math.exp(x) - math.exp(-x)) / 2;
+      case 'cosh': result = (math.exp(x) + math.exp(-x)) / 2;
+      case 'tanh':
+        final e2 = math.exp(2 * x);
+        result = (e2 - 1) / (e2 + 1);
+      case 'sinh⁻¹': result = math.log(x + math.sqrt(x * x + 1));
+      case 'cosh⁻¹':
+        if (x < 1) { _setError('Tanımsız'); return; }
+        result = math.log(x + math.sqrt(x * x - 1));
+      case 'tanh⁻¹':
+        if (x <= -1 || x >= 1) { _setError('Tanımsız'); return; }
+        result = 0.5 * math.log((1 + x) / (1 - x));
+      case 'x³': result = x * x * x;
+      case '∛x':
+        result = x < 0
+            ? -math.pow(-x, 1 / 3).toDouble()
+            : math.pow(x, 1 / 3).toDouble();
+      case 'Rnd': result = x.roundToDouble();
+      case '⌊x⌋': result = x.floorToDouble();
     }
 
     if (result == null) return;
@@ -214,6 +238,12 @@ class CalculatorEngine {
   void inputAns() {
     if (_hasError) clear();
     _display = _formatNum(_lastAnswer);
+    _newInput = false;
+  }
+
+  void inputRandom() {
+    if (_hasError) clear();
+    _display = _formatNum(_rng.nextDouble());
     _newInput = false;
   }
 
