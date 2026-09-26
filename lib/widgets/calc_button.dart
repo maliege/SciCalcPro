@@ -141,24 +141,24 @@ class _CalcButtonState extends State<CalcButton>
     switch (s) {
       case ButtonStyle.number:
         return const _KeySpec(
-          face: Color(0xFF3C4058),
-          top:  Color(0xFF5A5F7A),
-          bot:  Color(0xFF22253A),
+          face: Color(0xFF3A3F44),
+          top:  Color(0xFF596168),
+          bot:  Color(0xFF24282C),
           fg:   Colors.white,
         );
       case ButtonStyle.operator:
         return const _KeySpec(
-          face: Color(0xFF2C3654),
-          top:  Color(0xFF3E4E70),
-          bot:  Color(0xFF18203A),
-          fg:   Color(0xFFB8D4FF),
+          face: Color(0xFF343A40),
+          top:  Color(0xFF505860),
+          bot:  Color(0xFF202428),
+          fg:   Color(0xFFD5D9DD),
         );
       case ButtonStyle.function:
         return const _KeySpec(
-          face: Color(0xFF222840),
-          top:  Color(0xFF303858),
-          bot:  Color(0xFF12162A),
-          fg:   Color(0xFFD0DCF8),
+          face: Color(0xFF2C3034),
+          top:  Color(0xFF464C52),
+          bot:  Color(0xFF171A1D),
+          fg:   Color(0xFFD0D4D8),
         );
       case ButtonStyle.shift:
         return const _KeySpec(
@@ -183,9 +183,9 @@ class _CalcButtonState extends State<CalcButton>
         );
       case ButtonStyle.accent:
         return const _KeySpec(
-          face: Color(0xFF1A3D78),
-          top:  Color(0xFF2A55A0),
-          bot:  Color(0xFF0E2248),
+          face: Color(0xFF4A5056),
+          top:  Color(0xFF697178),
+          bot:  Color(0xFF292E33),
           fg:   Colors.white,
         );
     }
@@ -225,7 +225,7 @@ class _CasioKey extends StatelessWidget {
       children: [
         // ── Labels printed ABOVE button (on body, like real Casio) ──────────
         SizedBox(
-          height: 14,
+          height: 16,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -235,11 +235,11 @@ class _CasioKey extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 4),
                   child: Text(
                     shiftLabel!,
-                    style: const TextStyle(
-                      color: Color(0xFFF5A623),   // Casio shift yellow
-                      fontSize: 8.5,
+                    style: TextStyle(
+                      color: const Color(0xFFF5A623), // Casio shift yellow
+                      fontSize: shiftLabel!.length >= 6 ? 9 : 9.5,
                       fontWeight: FontWeight.w700,
-                      letterSpacing: 0.3,
+                      letterSpacing: 0.1,
                       height: 1,
                     ),
                   ),
@@ -247,13 +247,13 @@ class _CasioKey extends StatelessWidget {
               if (alphaLabel != null)
                 Text(
                   alphaLabel!,
-                  style: const TextStyle(
-                    color: Color(0xFFEF5350),     // Casio alpha red
-                    fontSize: 8.5,
+                  style: TextStyle(
+                    color: const Color(0xFFEF5350), // Casio alpha red
+                    fontSize: alphaLabel!.length >= 6 ? 9 : 9.5,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 0.3,
+                    letterSpacing: 0.1,
                     height: 1,
-                  ),
+                    ),
                 ),
             ],
           ),

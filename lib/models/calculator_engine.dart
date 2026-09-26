@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 enum AngleMode { degrees, radians }
 
-enum MemoryOp { add, subtract, recall, clear }
+enum MemoryOp { add, subtract, recall, clear, store }
 
 class CalculatorEngine {
   String _display = '0';
@@ -168,6 +168,11 @@ class CalculatorEngine {
         if (x < -1 || x > 1) { _setError('Tanımsız'); return; }
         result = _toDeg(math.acos(x));
       case 'tan⁻¹': result = _toDeg(math.atan(x));
+      case 'cot':
+        if (xRad % math.pi == 0) { _setError('Tanımsız'); return; }
+        result = 1 / math.tan(xRad);
+      case 'cot⁻¹':
+        result = _toDeg(math.atan(1 / x));
       case 'log':
         if (x <= 0) { _setError('Tanımsız'); return; }
         result = math.log(x) / math.ln10;
@@ -202,13 +207,24 @@ class CalculatorEngine {
       case 'tanh⁻¹':
         if (x <= -1 || x >= 1) { _setError('Tanımsız'); return; }
         result = 0.5 * math.log((1 + x) / (1 - x));
+      case 'coth':
+        if (x == 0) { _setError('Tanımsız'); return; }
+        result = 1 / ((math.exp(2 * x) - 1) / (math.exp(2 * x) + 1));
+      case 'coth⁻¹':
+        if (x.abs() <= 1) { _setError('Tanımsız'); return; }
+        result = 0.5 * math.log((x + 1) / (x - 1));
       case 'x³': result = x * x * x;
       case '∛x':
         result = x < 0
             ? -math.pow(-x, 1 / 3).toDouble()
             : math.pow(x, 1 / 3).toDouble();
+      case 'x⁴': result = x * x * x * x;
+      case '⁴√x':
+        if (x < 0) { _setError('Tanımsız'); return; }
+        result = math.pow(x, 1 / 4).toDouble();
       case 'Rnd': result = x.roundToDouble();
       case '⌊x⌋': result = x.floorToDouble();
+      case '⌈x⌉': result = x.ceilToDouble();
     }
 
     if (result == null) return;
@@ -258,6 +274,7 @@ class CalculatorEngine {
         _display = _formatNum(_memory);
         _newInput = false;
       case MemoryOp.clear:    _memory = 0;
+      case MemoryOp.store:    _memory = x;
     }
   }
 

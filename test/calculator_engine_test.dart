@@ -252,6 +252,14 @@ void main() {
       e.unaryFunction('√x');
       expect(e.display, 'Tanımsız');
     });
+
+    test('x⁴ and ⁴√x are inverse operations', () {
+      typeNumber(e, '3');
+      e.unaryFunction('x⁴');
+      expectClose(e, 81);
+      e.unaryFunction('⁴√x');
+      expectClose(e, 3);
+    });
   });
 
   // ── Trigonometry — degree mode ─────────────────────────────────────────────
@@ -310,6 +318,12 @@ void main() {
       typeNumber(e, '1');
       e.unaryFunction('tan⁻¹');
       expectClose(e, 45);
+    });
+
+    test('cot(45°) = 1', () {
+      typeNumber(e, '45');
+      e.unaryFunction('cot');
+      expectClose(e, 1);
     });
 
     test('sin⁻¹(2) sets error (out of domain)', () {
@@ -427,6 +441,13 @@ void main() {
       expectClose(e, 0);
     });
 
+    test('coth(1) and coth⁻¹ recover their input', () {
+      typeNumber(e, '1');
+      e.unaryFunction('coth');
+      e.unaryFunction('coth⁻¹');
+      expectClose(e, 1, tol: 1e-8);
+    });
+
     test('inverse hyperbolic functions recover their inputs', () {
       typeNumber(e, '1');
       e.unaryFunction('sinh');
@@ -484,6 +505,11 @@ void main() {
       typeNumber(e, '2.6');
       e.unaryFunction('⌊x⌋');
       expectClose(e, 2);
+
+      e.clear();
+      typeNumber(e, '2.1');
+      e.unaryFunction('⌈x⌉');
+      expectClose(e, 3);
     });
 
     test('10 mod 3 = 1', () {
@@ -617,6 +643,15 @@ void main() {
       e.clear();
       e.memoryOperation(MemoryOp.recall);
       expectClose(e, 42);
+    });
+
+    test('MS replaces the stored value', () {
+      typeNumber(e, '42');
+      e.memoryOperation(MemoryOp.add);
+      e.clear();
+      typeNumber(e, '7');
+      e.memoryOperation(MemoryOp.store);
+      expect(e.memory, 7);
     });
 
     test('M+ accumulates', () {
