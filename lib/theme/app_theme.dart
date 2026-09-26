@@ -28,13 +28,13 @@ class AppColors extends ThemeExtension<AppColors> {
   });
 
   static const dark = AppColors(
-    scaffoldBg: Color(0xFF0A0E1A),
-    calcBg: Color(0xFF131825),
-    headerBg: Color(0xFF0D1220),
-    card: Color(0xFF111827),
-    fieldFill: Color(0xFF0D1525),
-    border: Color(0xFF1F2D42),
-    label: Color(0xFF90A4AE),
+    scaffoldBg: Color(0xFF121416),
+    calcBg: Color(0xFF1B1E21),
+    headerBg: Color(0xFF0E1012),
+    card: Color(0xFF202428),
+    fieldFill: Color(0xFF181B1E),
+    border: Color(0xFF343A40),
+    label: Color(0xFFAAB1B8),
     primaryText: Colors.white,
   );
 
@@ -100,7 +100,9 @@ class AppTheme {
   static ThemeData light() => _build(Brightness.light, AppColors.light);
 
   static ThemeData _build(Brightness brightness, AppColors colors) {
-    const seed = Color(0xFF00D4FF);
+    final seed = brightness == Brightness.dark
+        ? const Color(0xFF9AA0A6)
+        : const Color(0xFF00D4FF);
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,

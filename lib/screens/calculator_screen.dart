@@ -179,7 +179,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   // ── Button rows ─────────────────────────────────────────────────────────
 
-  // Row 1 (Control): SHIFT · DEG/RAD · π · EE · nPr/nCr
+  // Row 1 (Control): SHIFT · DEG/RAD · π · EE · nPr/nCr · e
   Widget _rowControl() => Row(children: [
         cb.CalcButton(
           label: 'SHIFT',
@@ -214,14 +214,21 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           onTap: () => _binaryShift('nPr', 'nCr'),
           fontSize: 12,
         ),
+        cb.CalcButton(
+          label: 'e',
+          style: cb.ButtonStyle.function,
+          onTap: () => _constant('e'),
+          fontSize: 16,
+        ),
       ]);
 
-  // Memory: MC · MR · M+ · M- · ANS
+  // Memory: MC · MR · M+ · M- · MS · ANS
   Widget _rowMemory() => Row(children: [
         _mem('MC', MemoryOp.clear),
         _mem('MR', MemoryOp.recall),
         _mem('M+', MemoryOp.add),
         _mem('M-', MemoryOp.subtract),
+        _mem('MS', MemoryOp.store),
         cb.CalcButton(
           label: 'ANS',
           style: cb.ButtonStyle.memory,
@@ -230,20 +237,22 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         ),
       ]);
 
-  // Row 3 (Trig): sin · cos · tan · log · ln
+  // Row 3 (Trig): sin · cos · tan · cot · log · ln
   Widget _rowTrig() => Row(children: [
         _fn('sin', 'sin', shiftLabel: 'sin⁻¹', shiftFn: 'sin⁻¹'),
         _fn('cos', 'cos', shiftLabel: 'cos⁻¹', shiftFn: 'cos⁻¹'),
         _fn('tan', 'tan', shiftLabel: 'tan⁻¹', shiftFn: 'tan⁻¹'),
+        _fn('cot', 'cot', shiftLabel: 'cot⁻¹', shiftFn: 'cot⁻¹'),
         _fn('log', 'log', shiftLabel: '10ˣ',   shiftFn: '10ˣ'),
         _fn('ln',  'ln',  shiftLabel: 'eˣ',    shiftFn: 'eˣ'),
       ]);
 
-  // Row 4 (Hyperbolic): sinh · cosh · tanh · mod · Ran#
+  // Row 4 (Hyperbolic): sinh · cosh · tanh · coth · mod · Ran#
   Widget _rowHyp() => Row(children: [
         _fn('sinh', 'sinh', shiftLabel: 'sinh⁻¹', shiftFn: 'sinh⁻¹'),
         _fn('cosh', 'cosh', shiftLabel: 'cosh⁻¹', shiftFn: 'cosh⁻¹'),
         _fn('tanh', 'tanh', shiftLabel: 'tanh⁻¹', shiftFn: 'tanh⁻¹'),
+        _fn('coth', 'coth', shiftLabel: 'coth⁻¹', shiftFn: 'coth⁻¹'),
         cb.CalcButton(
           label: 'mod',
           style: cb.ButtonStyle.function,
@@ -258,10 +267,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         ),
       ]);
 
-  // Row 5 (Power/Root): x² · x³ · xʸ · 1/x · x!
+  // Row 5 (Power/Root): x² · x³ · x⁴ · xʸ · 1/x · x!
   Widget _rowPower() => Row(children: [
         _fn('x²', 'x²', shiftLabel: '√x',  shiftFn: '√x'),
         _fn('x³', 'x³', shiftLabel: '∛x',  shiftFn: '∛x'),
+        _fn('x⁴', 'x⁴', shiftLabel: '⁴√x', shiftFn: '⁴√x'),
         cb.CalcButton(
           label: 'xʸ',
           shiftLabel: 'ʸ√x',
@@ -273,7 +283,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         _fn('x!',  'x!'),
       ]);
 
-  // Row 5 (Misc): +/- · % · |x| · Rnd · ⌊x⌋
+  // Row 5 (Misc): +/- · % · |x| · Rnd · ⌊x⌋ · ⌈x⌉
   Widget _rowMisc() => Row(children: [
         cb.CalcButton(
           label: '+/-',
@@ -290,6 +300,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         _fn('|x|', 'abs'),
         _fn('Rnd', 'Rnd'),
         _fn('⌊x⌋', '⌊x⌋'),
+        _fn('⌈x⌉', '⌈x⌉'),
       ]);
 
   // Numeric controls: AC · ⌫ · CE · ÷

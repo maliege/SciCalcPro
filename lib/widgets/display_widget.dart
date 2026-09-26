@@ -177,16 +177,16 @@ class _LcdPalette {
     required this.indAlpha,
   });
 
-  // Koyu tema — mavi parıltılı LCD (mevcut görünüm)
+  // Koyu tema — nötr antrasit LCD
   static const dark = _LcdPalette(
-    bg: Color(0xFF070B10),
-    dot: Color(0x1890C0E0),
-    border: Color(0xFF1A2535),
-    glow: Color(0x1A3060A0),
-    mainText: Color(0xFF98D8F8),
-    secondaryText: Color(0xFF3A6888),
+    bg: Color(0xFF0C0E10),
+    dot: Color(0x189AA0A6),
+    border: Color(0xFF2A2F34),
+    glow: Color(0x1A7A8288),
+    mainText: Color(0xFFD9DDE0),
+    secondaryText: Color(0xFF858C92),
     errorText: Color(0xFFFF4040),
-    indRad: Color(0xFF58A8D8),
+    indRad: Color(0xFFB0B7BC),
     indMem: Color(0xFF48B8B0),
     indShift: Color(0xFFD09030),
     indAlpha: Color(0xFFCC4444),
